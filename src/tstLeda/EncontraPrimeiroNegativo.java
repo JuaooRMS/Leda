@@ -6,7 +6,7 @@ class EncontraPrimeiroNegativo {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		String[] seq = sc.nextLine().split(" ");
-		EncontraNeg(seq);
+		System.out.println(EncontraNeg(seq));
 	}
 	public static String EncontraNeg(String[] s) {
 		for(int i = 0; i < s.length; i++) {
@@ -14,7 +14,7 @@ class EncontraPrimeiroNegativo {
 				return s[i];
 			}
 		}
-		return " - ";
+		return "-";
 
 	}
 }

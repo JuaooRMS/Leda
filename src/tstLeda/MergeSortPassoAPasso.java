@@ -28,10 +28,10 @@ public class MergeSortPassoAPasso {
 		}
  
 		int meio = indiceAux / 2;
-
 		int i = 0;
 		int j = meio + 1;
 		int k = ini;
+		
 
 		while (i <= meio && j <= indiceAux) {
 			if (arrayAux[i] <= arrayAux[j]) {

@@ -1,5 +1,5 @@
 package RoteiroQuatroAlgs;
 
 public interface Sorting {
-	public void sort(int[] seq);
+	void sort(int[] seq);
 }

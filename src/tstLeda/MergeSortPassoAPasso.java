@@ -26,10 +26,9 @@ public class MergeSortPassoAPasso {
 		for (int i = 0; i <= indiceAux; i++) {
 			arrayAux[i] = seq[ini + i];
 		}
-
+ 
 		int meio = indiceAux / 2;
-		System.out.println(Arrays.toString(arrayAux));
-		
+
 		int i = 0;
 		int j = meio + 1;
 		int k = ini;

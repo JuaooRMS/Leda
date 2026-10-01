@@ -19,7 +19,6 @@ class Quicksort {
 	public static int partition(int[] seq, int ini, int fim) {
 		int pivot = seq[ini];
 		int i = ini;
-		
 		for(int j = ini + 1; j <= fim; j++) {
 			if(seq[j] <= pivot) {
 				i++;
@@ -27,22 +26,27 @@ class Quicksort {
 			}
 		}
 		swap(seq, ini, i);
-		System.out.println(Arrays.toString(seq));
+		
+		String output = "";
+		for(int k = 0; k < seq.length; k++) {
+			output += seq[k] + " ";
+		}
+		System.out.println(output.trim());
 		return i;
 	}
 	
-	public static void swap(int[] v, int i, int j) {
-		int aux = v[j];
-		v[j] = v[i];
-		v[i] = aux;
-	}
-	
-	public static void quickSort(int[] seq, int ini, int fim) {
+	public static void quickSort(int [] seq, int ini, int fim) {
 		if(ini < fim) {
 			int indexPivot = partition(seq, ini, fim);
 			quickSort(seq, ini, indexPivot - 1);
 			quickSort(seq, indexPivot + 1, fim);
+			
 		}
 	}
 	
+	public static void swap(int[] seq, int i, int j) {
+		int aux = seq[i];
+		seq[i] = seq[j];
+		seq[j] = aux;
+	}
 }

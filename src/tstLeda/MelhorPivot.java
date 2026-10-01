@@ -19,6 +19,7 @@ public class MelhorPivot {
 			possiveisPivots[i] = Integer.parseInt(entrada2[i]);
 		}
 		quickSort(seq, possiveisPivots[0], possiveisPivots[1]);
+		System.out.println(melhorPivot(seq, possiveisPivots[0], possiveisPivots[1]));
 	}
 	
 	public static int partition(int[] seq, int ini, int fim) {
@@ -50,18 +51,30 @@ public class MelhorPivot {
 	}
 	
 	public static int melhorPivot(int[] seq, int ini, int fim) {
-		int menores = 0;
-		int maiores = 0;
+		int menores1 = 0;
+		int maiores1 = 0;
+		int menores2 = 0;
+		int maiores2 = 0;
 		int melhor = 0;
 		for(int k = 0; k < seq.length; k++) {
 			if(seq[k] <= seq[ini]) {
-				menores++;
+				menores1++;
 			} else {
-				maiores++;
+				maiores1++;
 			}
-		}	
-		if(melhor == 0 || Math.abs(menores - maiores) < melhor) {
-			melhor = Math.abs(menores - maiores);
+		}
+		for(int k = 0; k < seq.length; k++) {
+			if(seq[k] <= seq[fim]) {
+				menores2++;
+			} else {
+				maiores2++;
+			}
+		}
+		if(melhor == 0 || Math.abs(menores1 - maiores1) < melhor) {
+			melhor = ini;
+		}
+		else if(melhor == 0 || Math.abs(menores2 - maiores2) < melhor) {
+			melhor = fim;
 		}
 		return melhor;
 	}

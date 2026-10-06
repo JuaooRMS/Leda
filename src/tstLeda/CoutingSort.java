@@ -14,8 +14,7 @@ class CoutingSort {
 			couting(A, maiorElem);
 	}
 	
-	public static String couting(int[] A, int k) {
-		String saidaB = "";
+	public static int[] couting(int[] A, int k) {
 		int[] C = new int[k + 1];
 		for(int i = 0; i < A.length; i++) {
 			String saidaC = "";

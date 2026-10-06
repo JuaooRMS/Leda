@@ -1,0 +1,35 @@
+package tstLeda;
+
+import java.util.*;
+
+public class CoutingNegativo {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+			String[] entrada = sc.nextLine().split(" ");
+			int[] A = new int[entrada.length];
+			for(int i = 0; i < entrada.length; i++) {
+				A[i] = Integer.parseInt(entrada[i]);
+			}
+			int maiorElem = sc.nextInt();
+			int menorElem = sc.nextInt();
+			System.out.println(Arrays.toString(couting(A, maiorElem, menorElem)));
+	}
+	
+	public static int[] couting(int[] A, int k, int l) {
+		int[] C = new int[k + 1];
+		for(int i = 0; i < A.length; i++) {
+			C[A[i]] += 1;
+		}
+		
+		for(int i = 1; i < C.length; i++) {
+			C[i] += C[i - 1];
+		}
+		
+		int[] B = new int[A.length];
+		for(int i = A.length -1; i >= 0; i--) {
+			B[C[A[i]]- 1] = A[i];
+			C[A[i]] -= 1;
+		}
+		return B;
+	}
+}

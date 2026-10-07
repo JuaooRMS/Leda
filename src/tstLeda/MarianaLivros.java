@@ -14,11 +14,10 @@ class MarianaLivros {
 				saida += entrada[i];
 			}
 		}
-		System.out.println(saida.trim());
-			
 	}
 	
 	public static void InsertionSort(String[] seq) {
+		System.out.println(formataSaida(seq));
 		for(int i = 1; i < seq.length; i++) {
 			int j = i;
 			while(j > 0 && seq[j].compareTo(seq[j - 1]) < 0) {
@@ -26,9 +25,20 @@ class MarianaLivros {
 				seq[j] = seq[j - 1];
 				seq[j - 1] = aux;
 				j--;
-				System.out.println(Arrays.toString(seq));
 			}
+			System.out.println(formataSaida(seq));
 		}
 	}
-
+	
+	public static String formataSaida(String[] entrada) {
+		String saida = "";
+		for(int i = 0; i < entrada.length; i++) {
+			if(i != entrada.length-1) {
+				saida += entrada[i] + ", ";
+			} else {
+				saida += entrada[i];
+			}
+		}
+		return saida.trim();
+	}
 }

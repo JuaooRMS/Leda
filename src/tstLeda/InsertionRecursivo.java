@@ -17,7 +17,7 @@ class InsertionRecursivo {
 		}
 		int j = i;
 			
-		while(j > 0 && seq[j] <= seq[j-1]) {
+		while(j > 0 && seq[j] < seq[j-1]) {
 			swap(seq, j, j - 1);
 			j--;
 		}

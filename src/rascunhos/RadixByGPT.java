@@ -1,74 +1,57 @@
 package rascunhos;
 
 import java.util.*;
-
 public class RadixByGPT {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
 
-    public static void main(String[] args) {
+		String[] entrada = sc.nextLine().split(" ");
+		int quantDigito = sc.nextInt();
+		int[] seq = new int[entrada.length];
 
-        int[] seq = {170, 45, 75, 90, 802, 24, 2, 66};
-
-        radixSort(seq);
-
-        System.out.println(Arrays.toString(seq));
+		for (int i = 0; i < entrada.length; i++) {
+			seq[i] = Integer.parseInt(entrada[i]);
+		}
+		seq = radixSort(seq);
     }
 
     public static int maior(int[] seq) {
-
         int maior = seq[0];
-
         for (int i = 1; i < seq.length; i++) {
-
             if (seq[i] > maior) {
                 maior = seq[i];
             }
         }
-
         return maior;
     }
 
-    public static void radixSort(int[] seq) {
+    public static int[] radixSort(int[] A) {
+        int maxNum = maior(A);
 
-        int maior = maior(seq);
-
-        for (int pos = 1; maior / pos > 0; pos *= 10) {
-            countingSort(seq, pos);
+        for (int posicao = 1; maxNum / posicao > 0; posicao *= 10) {
+        	A = countingSort(A, posicao);
+        	System.out.println(Arrays.toString(A));
         }
+        return A;
     }
-
-    public static void countingSort(int[] seq, int pos) {
-
-        int[] resultado = new int[seq.length];
-        int[] contagem = new int[10];
-
-        // Conta os dígitos
-        for (int i = 0; i < seq.length; i++) {
-
-            int digito = (seq[i] / pos) % 10;
-
-            contagem[digito]++;
-        }
-
-        // Acumula as contagens
-        for (int i = 1; i < 10; i++) {
-
-            contagem[i] += contagem[i - 1];
-        }
-
-        // Coloca os elementos no resultado
-        for (int i = seq.length - 1; i >= 0; i--) {
-
-            int digito = (seq[i] / pos) % 10;
-
-            resultado[contagem[digito] - 1] = seq[i];
-
-            contagem[digito]--;
-        }
-
-        // Copia para o array original
-        for (int i = 0; i < seq.length; i++) {
-
-            seq[i] = resultado[i];
-        }
+    public static int[] countingSort(int[] A, int posicao) {
+    	
+    	int[] C = new int[10];
+    	for(int i = 0; i < A.length; i++) {
+    		int digito = (A[i]/posicao) % 10;
+    		C[digito] += 1; 
+    	}
+    	
+    	for(int i = 1; i < C.length; i++) {
+    		C[i] += C[i - 1];
+    	}
+    	
+    	int[] B = new int[A.length];
+    	for(int i = A.length - 1; i >= 0; i--) {
+    		int digito = (A[i]/posicao) % 10;
+    		B[C[digito] -1] = A[i];
+    		C[digito] -= 1;
+    	}
+    	return B;
     }
 }

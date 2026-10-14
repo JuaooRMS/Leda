@@ -1,4 +1,4 @@
-package tstLeda;
+package rascunhos;
 
 import java.util.*;
 
@@ -7,7 +7,6 @@ public class RadixNegativo {
 		Scanner sc = new Scanner(System.in);
 
 		String[] entrada = sc.nextLine().split(" ");
-		int quantDigito = sc.nextInt();
 		int[] seq = new int[entrada.length];
 
 		for (int i = 0; i < entrada.length; i++) {
@@ -25,6 +24,17 @@ public class RadixNegativo {
         }
         return maior;
     }
+    
+    public static int menor(int[] seq) {
+        int menor = seq[0];
+        for (int i = 1; i < seq.length; i++) {
+            if (seq[i] < menor) {
+                menor = seq[i];
+            }
+        }
+        return menor;
+    }
+    
 
     public static int[] radixSort(int[] A) {
         int maxNum = maior(A);

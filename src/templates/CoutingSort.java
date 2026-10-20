@@ -1,4 +1,4 @@
-package tstLeda;
+package templates;
 
 import java.util.*;
 class CoutingSort {

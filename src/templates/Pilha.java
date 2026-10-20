@@ -1,4 +1,4 @@
-package tstLeda;
+package templates;
 
 import java.util.*;
 public class Pilha {

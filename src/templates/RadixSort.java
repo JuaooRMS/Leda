@@ -1,4 +1,4 @@
-package tstLeda;
+package templates;
 /**
  * A diferenca entre o Radix padrao e Radix de Dois ou Tres digitos estar no tamanho
  * do intervalo que analisamos, padrao sao 10 digitos, Dois sao 100 e Tres, 1000.

@@ -15,8 +15,7 @@ public class ArrayList {
     }
 
     public boolean isEmpty() {
-        // TODO
-        return false;
+        return this.tamanho == 0;
     }
 
     public void addFirst(int valor) {

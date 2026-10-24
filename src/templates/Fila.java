@@ -78,7 +78,7 @@ public class Fila {
         	this.head = -1;
         	this.tail = -1;
         } else {
-        	this.head = (this.tail + 1) % this.fila.length;
+        	this.head = (this.head + 1) % this.fila.length;
         }
         this.size -= 1;
         return saida;

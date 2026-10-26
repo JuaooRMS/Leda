@@ -104,19 +104,56 @@ public class LinkedList {
 
 	// deve lançar exceção caso a fila esteja vazia.
 	public int removeLast() {
-		return -1;
+		if(isEmpty()) throw new NoSuchElementException();
+		
+		int saida = this.tail.value;
+		if(this.head.next == null) {
+			this.head = null;
+			this.tail = null;
+		} else {
+			this.tail = this.tail.prev;
+			this.tail.next = null;
+		}
+		this.size--;
+		return saida;
 	}
 
 	// remove o valor no índice passado como parâmetro. retorna o valor removido.
 	// lançar exceção se o índice não for válido.
 	public int remove(int index) {
-		return -1;
+		if(index < 0 || index >= this.size) throw new IndexOutOfBoundsException();
+		
+		if(index == 0) removeFirst();
+		else if(index == this.size - 1) removeLast();
+		Node aux = this.head;
+		for(int i = 0; i < index; i++) {
+			aux = aux.next;
+		}
+		aux.prev.next = aux.next;
+		aux.next.prev = aux.prev;
+		this.size--;
+		return aux.value;
 	}
 
 	// remove a primeira ocorrência do elemento cujo valor foi passado como
 	// parâmetro.
 	// se não encontrar, não faça nada. true se remover, false se não remover.
 	public boolean removeByValue(int value) {
+		if(isEmpty()) throw new NoSuchElementException();
+		Node aux = this.head;
+		for(int i = 0; i < this.size; i++) {
+			if(aux.value == value) {
+				if(i == 0) removeFirst();
+				else if(i == this.size - 1) removeLast();
+				else {
+					aux.prev.next = aux.next;
+					aux.next.prev = aux.prev;
+					this.size--;
+				}
+				return true;
+			}
+			aux = aux.next;
+		}
 		return false;
 	}
 
@@ -173,9 +210,20 @@ public class LinkedList {
 		for(int i = 0; i < index; i++) {
 			aux = aux.next;
 		}
-		if(aux != this.head) {
+		if(aux == this.head) {
+			return;
+		} else {
+			if(aux != this.tail) {
+				aux.prev.next = aux.next;
+				aux.next.prev = aux.prev;
+			} else {
+				aux.prev.next = null;
+				this.tail = aux.prev;
+			}
 			aux.next = this.head;
+			aux.prev = null;
 			this.head.prev = aux;
+			this.head = aux;
 		}
 	}
 
@@ -183,6 +231,32 @@ public class LinkedList {
 	// para que a lista continue ordenada depois da inserção. se já houver
 	// elementos iguais a v na lista, insira v depois deles.
 	public void insereOrdenado(int v) {
+		Node newNode = new Node(v);
+		if(isEmpty()) {
+			this.head = newNode;
+			this.tail = newNode;
+			this.size++;
+			return;
+		}
+		Node aux = this.head;
+		while(aux != null && v >= aux.value) {
+			aux = aux.next;
+		}
+		if(aux == null) {
+			newNode.prev = this.tail;
+			this.tail.next = newNode;
+			this.tail = newNode;
+		} else {
+			newNode.next = aux;
+			newNode.prev = aux.prev;
+				if(aux.prev != null) {
+					aux.prev.next = newNode;
+				} else {
+					this.head = newNode;
+				}
+				aux.prev = newNode;
+		}
+		this.size++;
 	}
 
 	// troca n1 e n2 de posição na lista. não é permitido trocar os valores
@@ -190,6 +264,39 @@ public class LinkedList {
 	// algoritmo deve ser O(1), já que os nós a trocar são recebidos como
 	// parâmetro (ou seja, não é permitido percorrer a lista para achá-los).
 	public void swap(Node n1, Node n2) {
+		if(n1 == null || n2 == null || n1 == n2) return;
+		
+		Node p1 = n1.prev, x1 = n1.next;
+		Node p2 = n2.prev, x2 = n2.next;
+		if(x1 == n2) {
+			n2.prev = p1;
+			n2.next = n1;
+			n1.prev = n2;
+			n1.next = x2;
+			if(p1 != null) p1.next = n2;
+			if(x2 != null) x2.prev = n1;
+		} else if(x2 == n1) {
+			n1.prev = p2;
+			n1.next = n2;
+			n2.prev = n1;
+			n2.next = x1;
+			if(p2 != null) p2.next = n1;
+			if(x1 != null) x1.prev = n2;
+		} else {
+			n1.prev = p2;
+			n1.next = x2;
+			n2.prev = p1;
+			n2.next = x1;
+			if(p1 != null) p1.next = n2;
+			if(x1 != null) x1.prev = n2;
+			if(p2 != null) p2.next = n1;
+			if(x2 != null) x2.prev = n1;
+		}
+		if(n1 == this.head) this.head = n2;
+		else if(n2 == this.head) this.head = n1;
+		
+		if(n1 == this.tail) this.tail = n2;
+		else if(n2 == this.tail) this.tail = n1;
 	}
 
 	// inverte a lista: tail passa a ser head, o elemento anterior ao tail
@@ -210,7 +317,25 @@ public class LinkedList {
 	// removeByValue, que remove só a primeira ocorrência). retorna quantas
 	// remoções foram feitas.
 	public int removeAll(int valor) {
-		return -1;
+		int remocoes = 0;
+		int idx = 0;
+		Node aux = this.head;
+		while(aux != null) {
+			if(aux.value == valor) {
+				if(idx == 0) removeFirst();
+				else if(idx == this.size - 1) removeLast();
+				else {
+					aux.prev.next = aux.next;
+					aux.next.prev = aux.prev;
+					this.size--;
+				}
+				remocoes++;
+			} else {
+				idx++;
+			}
+			aux = aux.next;
+		}
+		return remocoes;
 	}
 
 	// retorna um array com os elementos da lista, na mesma ordem em que

@@ -17,13 +17,12 @@ public class Exemplo {
                 long start = System.nanoTime();
                 
                 // TODO incluir aqui chamada para o método sob análise        
-                comparaExtremos(tokens); 
-                
+        
                 long end = System.nanoTime();
                 long time = end - start;
                 
                 // saída padrão: método tempo tamanho_da_entrada
-                System.out.println("Compara Valores " + (time) + " " + tokens.length);
+                System.out.println("nome-metodo " + (time) + " " + tokens.length);
 
             }
         } catch (IOException ioe) {}
@@ -32,10 +31,8 @@ public class Exemplo {
 
 
     public static boolean comparaExtremos(String[] tokens) {
-        if(tokens[0].equals(tokens[tokens.length-1])){
-            return true;
-        }
         return false; 
+        //TODO: implementar
     }
 
     public static int indexOf(String[] tokens, String key) {

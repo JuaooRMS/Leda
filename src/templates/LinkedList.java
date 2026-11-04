@@ -232,30 +232,21 @@ public class LinkedList {
 	// elementos iguais a v na lista, insira v depois deles.
 	public void insereOrdenado(int v) {
 		Node newNode = new Node(v);
-		if(isEmpty()) {
-			this.head = newNode;
-			this.tail = newNode;
-			this.size++;
+		if(isEmpty() || v < this.head.value) {
+			addFirst(v);
+			return;
+		}
+		if(v >= this.tail.value) {
+			addLast(v);
 			return;
 		}
 		Node aux = this.head;
-		while(aux != null && v >= aux.value) {
+		while(aux != null && aux.next.value <= v)
 			aux = aux.next;
-		}
-		if(aux == null) {
-			newNode.prev = this.tail;
-			this.tail.next = newNode;
-			this.tail = newNode;
-		} else {
-			newNode.next = aux;
-			newNode.prev = aux.prev;
-				if(aux.prev != null) {
-					aux.prev.next = newNode;
-				} else {
-					this.head = newNode;
-				}
-				aux.prev = newNode;
-		}
+		newNode.next = aux.next;
+		aux.next = newNode;
+		newNode.next.prev = newNode;
+		newNode.prev = aux;
 		this.size++;
 	}
 

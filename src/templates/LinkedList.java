@@ -179,6 +179,15 @@ public class LinkedList {
 	// Deve retornar a posição da última ocorrência do elemento passado como
 	// parâmetro.
 	public int lastIndexOf(int valor) {
+		Node aux = this.tail;
+		int index = 0;
+		while(aux != null) {
+			if(aux.value == valor) {
+				return index;
+			}
+			aux = aux.prev;
+			index++;
+		}
 		return -1;
 	}
 
@@ -233,7 +242,7 @@ public class LinkedList {
 	public void insereOrdenado(int v) {
 		Node newNode = new Node(v);
 		if(isEmpty() || v < this.head.value) {
-			addFirst(v);
+			addLast(v);
 			return;
 		}
 		if(v >= this.tail.value) {
@@ -241,8 +250,9 @@ public class LinkedList {
 			return;
 		}
 		Node aux = this.head;
-		while(aux != null && aux.next.value <= v)
+		while(aux != null && aux.next.value <= v) {
 			aux = aux.next;
+		}
 		newNode.next = aux.next;
 		aux.next = newNode;
 		newNode.next.prev = newNode;
@@ -301,7 +311,15 @@ public class LinkedList {
 	// para o head, usando os ponteiros prev (e não next). serve para provar
 	// que a implementação é de fato duplamente encadeada.
 	public String toStringReverso() {
-		return null;
+		if(isEmpty()) return "";
+		
+		String saida = "";
+		Node aux = this.tail;
+		while(aux != null) {
+			saida += aux.value + " ";
+			aux = aux.prev;
+		}
+		return saida.substring(0, saida.length() - 1);
 	}
 
 	// remove todas as ocorrências de valor na lista (diferente de
@@ -340,7 +358,11 @@ public class LinkedList {
 	// passada pela lista. se a lista tiver tamanho par, retorne o segundo
 	// dos dois elementos centrais.
 	public int meio() {
-		return -1;
+		Node aux = this.head;
+		for(int i = 0; i < (this.size - 1)/2; i++) {
+			aux = aux.next;
+		}
+		return aux.value;
 	}
 
 	// retorna true se a lista for um palíndromo, isto é, se lê-la do head
@@ -349,7 +371,15 @@ public class LinkedList {
 	// resolver isso em O(n) tempo e O(1) espaço extra, sem array ou pilha
 	// auxiliar.
 	public boolean isPalindromo() {
-		return false;
+		Node aux = this.head;
+		Node aux2 = this.tail;
+		for(int i = 0; i < this.size/2; i++) {
+			if(aux.value != aux2.value) return false;		
+
+			aux = aux.next;
+			aux2 = aux2.prev;
+		}
+		return true;
 	}
 
 	// retorna o nó na posição index. existe só para permitir que os testes

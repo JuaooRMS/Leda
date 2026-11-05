@@ -5,6 +5,11 @@ public class Aluno {
 	private String nome;
 	private int matricula;
 	
+	public Aluno(int matricula, String nome) {
+		this.nome = nome;
+		this.matricula = matricula;
+	}
+	
 	public int getMatricula() {
 		return this.matricula;
 	}

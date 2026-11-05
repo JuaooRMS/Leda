@@ -48,6 +48,17 @@ public class HashEncadeada {
     }
     
     /**
+     * Calcula o hash utilizando o método da multiplicação.
+     * @param chave A chave para a qual o hash deve ser calculado.
+     * @return O hash calculado.
+     */
+    private int hashMultiplicacao(int chave) {
+	    double A = 0.6180339887;
+	    double hash = (chave * A) % 1;
+	    return (int) (tabela.length * hash);
+	}
+    
+    /**
      * Adiciona o par chave, valor na tabela.
      * @param chave a matrícula do aluno a ser adicionado.
      * @param valor o objeto Aluno a ser adicionado na tabela.
@@ -105,7 +116,7 @@ public class HashEncadeada {
     	}
         return false;
     }
-
+    
     public boolean containsValue(Aluno aluno) {
     	
     	for(int i = 0; i < tabela.length; i++) {
@@ -131,6 +142,8 @@ public class HashEncadeada {
     public Aluno remove(int chave) {
         int hash = hash(chave);
         ArrayList<Aluno> alunos = this.tabela[hash];
+        
+        if(alunos == null) return null;
         
         Iterator<Aluno> it = alunos.iterator();
         Aluno atual = null;

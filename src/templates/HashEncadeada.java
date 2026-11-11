@@ -3,6 +3,7 @@ package templates;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
 /**
  * Esta classe representa a implementação de uma Tabela Hash que usa endereçamento fechado (encadeamento)
  * para resolver colisões.
@@ -132,7 +133,28 @@ public class HashEncadeada {
     	
     	return false;
     }
-
+    
+    /**
+     * Remove o aluno cuja matrícula é igual a chave passada como parâmetro.
+     * @param chave A matrícula do aluno a ser removido.
+     * @return O aluno a ser removido. null caso não haja aluno com a matrícula
+     * passada como parâmetro. 
+     */
+    public Aluno remove2(int chave) {
+		int hash = hash(chave);
+		ArrayList<Aluno> alunos = this.tabela[hash];
+		
+		if(alunos == null) {
+			return null;
+		}
+		for(int i = 0; i < alunos.size(); i++) {
+			if(alunos.get(i).getMatricula() == chave) {
+				return alunos.remove(i);
+			}
+		}
+		return null;
+	}
+    
     /**
      * Remove o aluno cuja matrícula é igual a chave passada como parâmetro.
      * @param chave A matrícula do aluno a ser removido.
